@@ -25,43 +25,43 @@ public class Topic_04_Exercise_Xpath_CSS {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 	}
-	
+
 	@BeforeMethod
 	//chay cho moi test ben duoi
 	public void navigateToLoginPage() {
 		driver.get("http://live.guru99.com/");
 		driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
-		}
-	
+	}
+
 	public int randomNumber() {
 		Random rand = new Random();
-		 int n = rand.nextInt(100000);
-		 return n;
+		int n = rand.nextInt(100000);
+		return n;
 	}
 
 	@Test
 	public void loginWithEmptyEmailAndPassword() { // Dùng hàm assertEqual 
 		String msgRequired = "This is a required field.";
-		
+
 		driver.findElement(By.xpath("//input[@id='email']")).sendKeys("");
 		driver.findElement(By.xpath("//input[@id='pass']")).sendKeys("");
 		driver.findElement(By.xpath("//button[@title='Login']")).click();
-	   
+
 		String emaiErrorMsg  =  driver.findElement(By.xpath("//div[@class='validation-advice' and @id='advice-required-entry-email']")).getText();
 		Assert.assertEquals(emaiErrorMsg, msgRequired);
-		
+
 		String passErrorMsg  =  driver.findElement(By.xpath("//div[@class='validation-advice' and @id='advice-required-entry-pass']")).getText();
 		Assert.assertEquals(passErrorMsg, msgRequired);
-				
+
 	}
-	
+
 	@Test
 	public void loginWithInvalidEmail () {    // Dùng hàm assertTrue 
 		driver.findElement(By.xpath("//input[@id='email']")).sendKeys("linhnk@123");
 		driver.findElement(By.xpath("//button[@title='Login']")).click();
 		Assert.assertTrue(driver.findElement(By.xpath("//div[contains(text(),'Please enter a valid email address. For example johndoe@domain.com.')]")).isDisplayed());
-		}
-	
+	}
+
 	@Test
 	public void loginWithPassLessThanSixCharacters() {
 		driver.findElement(By.xpath("//input[@id='email']")).sendKeys("linhnk@gmail.com");
@@ -69,7 +69,7 @@ public class Topic_04_Exercise_Xpath_CSS {
 		driver.findElement(By.xpath("//button[@title='Login']")).click();
 		Assert.assertTrue(driver.findElement(By.xpath("//div[contains(text(),'Please enter 6 or more characters without leading or trailing spaces.')]")).isDisplayed());
 	}
-	
+
 	@Test
 	public void loginWitncorrectPassword() {
 		driver.findElement(By.xpath("//input[@id='email']")).sendKeys("automation@gmail.com");
@@ -77,36 +77,44 @@ public class Topic_04_Exercise_Xpath_CSS {
 		driver.findElement(By.xpath("//button[@title='Login']")).click();
 		Assert.assertTrue(driver.findElement(By.xpath("//*[@class='error-msg']//span[contains(text(),'Invalid login or password.')]")).isDisplayed());
 	}
-	
+
 	@Test
 	public void loginWithValidEmailAndPassword() {
 		driver.findElement(By.xpath("//input[@id='email']")).sendKeys(validEmail);
 		driver.findElement(By.xpath("//input[@id='pass']")).sendKeys(validPassword);
 		driver.findElement(By.xpath("//button[@title='Login']")).click();
-		
+
 		Assert.assertTrue(driver.findElement(By.xpath("//*[@class='error-msg']//span[contains(text(),'Invalid login or password.')]")).isDisplayed());
 	}
-	
+
 	@Test
 	public void creatANewAccount() {
-		
-	   String firstName = "Linh";
-	   String lastName = "Nguyen";
-		
+
+		String firstName = "Linh";
+		String lastName = "Nguyen";
+		String expectedSuccessMsg = "Thank you for registering with Main Website Store.";
+
 		driver.findElement(By.xpath("//a//span[text()='Create an Account']")).click();
-		
+
 		driver.findElement(By.xpath("//input[@id='firstname']")).sendKeys(firstName);
 		driver.findElement(By.xpath("//input[@id='lastname']")).sendKeys(lastName);
 		driver.findElement(By.xpath("//input[@id='email_address']")).sendKeys(validEmail);
 		driver.findElement(By.xpath("//input[@id='password']")).sendKeys(validPassword);
 		driver.findElement(By.xpath("//input[@id='confirmation']")).sendKeys(validPassword);
 		driver.findElement(By.xpath("//button[@title='Register']")).click();
+
+		String actualSuccessMsg = driver.findElement(By.xpath("//li[@class='success-msg']//span[text()='Thank you for registering with Main Website Store.']")).getText();
+		Assert.assertEquals(expectedSuccessMsg, actualSuccessMsg);	
 		
+		driver.findElement(By.xpath("//a[@class='skip-link skip-account']//span[text()='Account']")).click();
+		driver.findElement(By.xpath("//a[@title='Log Out']")).click();
+
+
 	}	
-	
+
 	@AfterClass
 	public void afterClass() {
-	driver.quit();
+		driver.quit();
 	}
 
 }
