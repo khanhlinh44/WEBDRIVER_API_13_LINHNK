@@ -27,46 +27,46 @@ public class Topic_06_Webrowser_WebElement {
 		driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
 	}
 
-//	@Test
-//	public void TC_01_verifyUrlLoginPage() {
-//		String loginPageUrl = driver.getCurrentUrl();
-//		Assert.assertEquals(loginPageUrl, "http://live.demoguru99.com/index.php/customer/account/login/");
-//	}
-//
-//	@Test
-//	public void TC_01_verifyUrlRegisterPage() {
-//		driver.findElement(By.xpath("//a//span[text()='Create an Account']")).click();
-//		String registerPageUrl = driver.getCurrentUrl();
-//		Assert.assertEquals(registerPageUrl, "http://live.demoguru99.com/index.php/customer/account/create/");
-//	}
-//
-//	@Test
-//	public void TC_02_verifyTitleLoginPage() {
-//		String loginPageTitle = driver.getTitle();
-//		Assert.assertEquals(loginPageTitle, "Customer Login");
-//	}
-//
-//	@Test
-//	public void TC_02_verifyTitleRegisterPage() {
-//		driver.findElement(By.xpath("//a//span[text()='Create an Account']")).click();
-//		String loginPageTitle = driver.getTitle();
-//		Assert.assertEquals(loginPageTitle, "Create New Customer Account");
-//	}
-//
-//	@Test
-//	public void TC_03_navigateFunction() {
-//		driver.findElement(By.xpath("//a//span[text()='Create an Account']")).click();
-//		String registerPageUrl = driver.getCurrentUrl();
-//		Assert.assertEquals(registerPageUrl, "http://live.demoguru99.com/index.php/customer/account/create/");
-//
-//		driver.navigate().back();
-//		String loginPageUrl = driver.getCurrentUrl();
-//		Assert.assertEquals(loginPageUrl, "http://live.demoguru99.com/index.php/customer/account/login/");
-//
-//		driver.navigate().forward();
-//		String registerPageTitle = driver.getTitle();
-//		Assert.assertEquals(registerPageTitle, "Create New Customer Account");
-//	}
+	@Test
+	public void TC_01_verifyUrlLoginPage() {
+		String loginPageUrl = driver.getCurrentUrl();
+		Assert.assertEquals(loginPageUrl, "http://live.demoguru99.com/index.php/customer/account/login/");
+	}
+
+	@Test
+	public void TC_01_verifyUrlRegisterPage() {
+		driver.findElement(By.xpath("//a//span[text()='Create an Account']")).click();
+		String registerPageUrl = driver.getCurrentUrl();
+		Assert.assertEquals(registerPageUrl, "http://live.demoguru99.com/index.php/customer/account/create/");
+	}
+
+	@Test
+	public void TC_02_verifyTitleLoginPage() {
+		String loginPageTitle = driver.getTitle();
+		Assert.assertEquals(loginPageTitle, "Customer Login");
+	}
+
+	@Test
+	public void TC_02_verifyTitleRegisterPage() {
+		driver.findElement(By.xpath("//a//span[text()='Create an Account']")).click();
+		String loginPageTitle = driver.getTitle();
+		Assert.assertEquals(loginPageTitle, "Create New Customer Account");
+	}
+
+	@Test
+	public void TC_03_navigateFunction() {
+		driver.findElement(By.xpath("//a//span[text()='Create an Account']")).click();
+		String registerPageUrl = driver.getCurrentUrl();
+		Assert.assertEquals(registerPageUrl, "http://live.demoguru99.com/index.php/customer/account/create/");
+
+		driver.navigate().back();
+		String loginPageUrl = driver.getCurrentUrl();
+		Assert.assertEquals(loginPageUrl, "http://live.demoguru99.com/index.php/customer/account/login/");
+
+		driver.navigate().forward();
+		String registerPageTitle = driver.getTitle();
+		Assert.assertEquals(registerPageTitle, "Create New Customer Account");
+	}
 
 	@Test
 	public void TC_04_getPageSourceCode() {
