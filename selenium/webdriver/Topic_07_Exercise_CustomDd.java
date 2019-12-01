@@ -52,7 +52,7 @@ public class Topic_07_Exercise_CustomDd {
 		System.out.println("Text = " + expectedValue);
 		Assert.assertEquals(actualValue, expectedValue);
 	}
-
+	
 	@Test
 	public void selectDd_VueJS() throws InterruptedException {
 		String actualValue = "Second Option";
@@ -62,7 +62,7 @@ public class Topic_07_Exercise_CustomDd {
 		Assert.assertTrue(
 				isElementDisplayed("//li[@class='dropdown-toggle' and normalize-space()='" + actualValue + "']"));
 	}
-
+	
 	@Test
 	public void selectDd_Jquer_EditableSelect() throws InterruptedException {
 		String actualValue = "BMW";
