@@ -3,14 +3,15 @@ package webdriver;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
-public class Topic_07_Exercise_TextArea_Dropdown_CustomDd {
+public class Topic_07_Exercise_TextArea_Dropdown {
 	WebDriver driver;
 
 	// Data
@@ -113,6 +114,11 @@ public class Topic_07_Exercise_TextArea_Dropdown_CustomDd {
 		Assert.assertEquals(mobileNumber,
 				driver.findElement(By.xpath("//td[text()='Email']/following-sibling::td")).getText());
 
+	}
+
+	@AfterClass
+	public void afterClass() {
+		driver.quit();
 	}
 
 }
