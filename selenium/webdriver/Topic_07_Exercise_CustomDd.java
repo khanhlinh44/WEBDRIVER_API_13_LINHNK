@@ -33,47 +33,47 @@ public class Topic_07_Exercise_CustomDd {
 		driver.manage().window().maximize();
 	}
 
-	@Test
-	public void selectDd_Jquery() throws InterruptedException {
-		String text = "19";
-		driver.get(jqueryUrl);
-		selectCustomDd("//span[@id='number-button']", "//ul[@id='number-menu']/li", text);
-		Thread.sleep(2000);
-		Assert.assertTrue(isElementDisplayed(
-				"//span[@id='number-button']//span[@class='ui-selectmenu-text' and text()='" + text + "']"));
-	}
+//	@Test
+//	public void selectDd_Jquery() throws InterruptedException {
+//		String text = "19";
+//		driver.get(jqueryUrl);
+//		selectCustomDd("//span[@id='number-button']", "//ul[@id='number-menu']/li", text);
+//		Thread.sleep(2000);
+//		Assert.assertTrue(isElementDisplayed(
+//				"//span[@id='number-button']//span[@class='ui-selectmenu-text' and text()='" + text + "']"));
+//	}
+//
+//	@Test
+//	public void selectDd_Angular() {
+//		String actualValue = "Basketball";
+//		driver.get(angularUrl);
+//		selectCustomDd("//ejs-dropdownlist[@id='games']", "//ul[@id='games_options']//li", actualValue);
+//		String expectedValue = getTextByJS("#games_hidden > option");
+//		System.out.println("Text = " + expectedValue);
+//		Assert.assertEquals(actualValue, expectedValue);
+//	}
+//
+//	@Test
+//	public void selectDd_VueJS() throws InterruptedException {
+//		String actualValue = "Second Option";
+//		driver.get(vueJsUrl);
+//		selectCustomDd("//li[@class='dropdown-toggle']", "//ul[@class='dropdown-menu']//li", actualValue);
+//		Thread.sleep(2000);
+//		Assert.assertTrue(
+//				isElementDisplayed("//li[@class='dropdown-toggle' and normalize-space()='" + actualValue + "']"));
+//	}
 
 	@Test
-	public void selectDd_Angular() {
-		String actualValue = "Basketball";
-		driver.get(angularUrl);
-		selectCustomDd("//ejs-dropdownlist[@id='games']", "//ul[@id='games_options']//li", actualValue);
-		String expectedValue = getTextByJS("#games_hidden > option");
-		System.out.println("Text = " + expectedValue);
-		Assert.assertEquals(actualValue, expectedValue);
-	}
-	
-	@Test
-	public void selectDd_VueJS() throws InterruptedException {
-		String actualValue = "Second Option";
-		driver.get(vueJsUrl);
-		selectCustomDd("//li[@class='dropdown-toggle']", "//ul[@class='dropdown-menu']//li", actualValue);
-		Thread.sleep(2000);
-		Assert.assertTrue(
-				isElementDisplayed("//li[@class='dropdown-toggle' and normalize-space()='" + actualValue + "']"));
-	}
-	
-	@Test
 	public void selectDd_Jquer_EditableSelect() throws InterruptedException {
-		String actualValue = "BMW";
+		String enteredValue = "Audi";
 		driver.get(jqueryEditable);
-		selectCustomEditableDd("(//div[text()='Into this']/following::input)[1]", "es-list", actualValue);
+		selectCustomEditableDd("(//div[text()='Into this']/following::input)[1]",
+				"//div[@id='basic-place']//ul[@class='es-list']//li[@style='display: block;']", enteredValue);
 		Thread.sleep(2000);
-		String expectedValue = driver
-				.findElement(By.xpath("//div[@id='basic-place']/ul[@class='es-list']//li[@class='es-visible']"))
-				.getText();
-		System.out.println("text======" + expectedValue);
-//		Assert.assertTrue(expectedValue);
+
+		String expect = getTextElementByJS("#basic-place li.es-visible");
+		Assert.assertEquals(enteredValue, expect);
+		System.out.println("Expected text =======" + expect);
 	}
 
 	public void selectCustomDd(String parentXpath, String allItemsXpath, String expectedText) {
@@ -95,12 +95,21 @@ public class Topic_07_Exercise_CustomDd {
 		}
 	}
 
-	public void selectCustomEditableDd(String parentXpath, String itemXpath, String actualText)
+	public void selectCustomEditableDd(String parentXpath, String allItemsXpath, String expectedText)
 			throws InterruptedException {
 		driver.findElement(By.xpath(parentXpath)).clear();
-		driver.findElement(By.xpath(parentXpath)).sendKeys(actualText);
-		driver.findElement(By.xpath(itemXpath)).click();
+		driver.findElement(By.xpath(parentXpath)).sendKeys(expectedText);
 		Thread.sleep(2000);
+
+		waitExplicit.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(allItemsXpath)));
+		List<WebElement> allItems = driver.findElements(By.xpath(allItemsXpath));
+
+		for (WebElement item : allItems) {
+			if (item.getText().equals(expectedText)) {
+				item.click();
+				break;
+			}
+		}
 	}
 
 	public boolean isElementDisplayed(String locator) {
@@ -114,6 +123,10 @@ public class Topic_07_Exercise_CustomDd {
 
 	public String getTextByJS(String locator) {
 		return (String) javascript.executeScript("return document.querySelector('" + locator + "').text");
+	}
+
+	public String getTextElementByJS(String locator) {
+		return (String) javascript.executeScript("return document.querySelector('" + locator + "').textContent");
 	}
 
 	@AfterClass
