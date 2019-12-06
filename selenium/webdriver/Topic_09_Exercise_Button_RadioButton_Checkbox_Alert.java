@@ -100,7 +100,7 @@ public class Topic_09_Exercise_Button_RadioButton_Checkbox_Alert {
 		String password = "admin";
 		String autheticationUrl = "https://" + userName + ":" + password + "@the-internet.herokuapp.com/basic_auth";
 		System.out.println(autheticationUrl);
-
+		
 		driver.get(autheticationUrl);
 		Thread.sleep(3000);
 		Assert.assertEquals(getText("//div[@id='content']//p"),
