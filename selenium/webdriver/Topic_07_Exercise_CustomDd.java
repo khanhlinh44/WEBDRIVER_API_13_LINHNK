@@ -33,35 +33,35 @@ public class Topic_07_Exercise_CustomDd {
 		driver.manage().window().maximize();
 	}
 
-//	@Test
-//	public void selectDd_Jquery() throws InterruptedException {
-//		String text = "19";
-//		driver.get(jqueryUrl);
-//		selectCustomDd("//span[@id='number-button']", "//ul[@id='number-menu']/li", text);
-//		Thread.sleep(2000);
-//		Assert.assertTrue(isElementDisplayed(
-//				"//span[@id='number-button']//span[@class='ui-selectmenu-text' and text()='" + text + "']"));
-//	}
-//
-//	@Test
-//	public void selectDd_Angular() {
-//		String actualValue = "Basketball";
-//		driver.get(angularUrl);
-//		selectCustomDd("//ejs-dropdownlist[@id='games']", "//ul[@id='games_options']//li", actualValue);
-//		String expectedValue = getTextByJS("#games_hidden > option");
-//		System.out.println("Text = " + expectedValue);
-//		Assert.assertEquals(actualValue, expectedValue);
-//	}
-//
-//	@Test
-//	public void selectDd_VueJS() throws InterruptedException {
-//		String actualValue = "Second Option";
-//		driver.get(vueJsUrl);
-//		selectCustomDd("//li[@class='dropdown-toggle']", "//ul[@class='dropdown-menu']//li", actualValue);
-//		Thread.sleep(2000);
-//		Assert.assertTrue(
-//				isElementDisplayed("//li[@class='dropdown-toggle' and normalize-space()='" + actualValue + "']"));
-//	}
+	@Test
+	public void selectDd_Jquery() throws InterruptedException {
+		String text = "19";
+		driver.get(jqueryUrl);
+		selectCustomDd("//span[@id='number-button']", "//ul[@id='number-menu']/li", text);
+		Thread.sleep(2000);
+		Assert.assertTrue(isElementDisplayed(
+				"//span[@id='number-button']//span[@class='ui-selectmenu-text' and text()='" + text + "']"));
+	}
+
+	@Test
+	public void selectDd_Angular() {
+		String actualValue = "Basketball";
+		driver.get(angularUrl);
+		selectCustomDd("//ejs-dropdownlist[@id='games']", "//ul[@id='games_options']//li", actualValue);
+		String expectedValue = getTextByJS("#games_hidden > option");
+		System.out.println("Text = " + expectedValue);
+		Assert.assertEquals(actualValue, expectedValue);
+	}
+
+	@Test
+	public void selectDd_VueJS() throws InterruptedException {
+		String actualValue = "Second Option";
+		driver.get(vueJsUrl);
+		selectCustomDd("//li[@class='dropdown-toggle']", "//ul[@class='dropdown-menu']//li", actualValue);
+		Thread.sleep(2000);
+		Assert.assertTrue(
+				isElementDisplayed("//li[@class='dropdown-toggle' and normalize-space()='" + actualValue + "']"));
+	}
 
 	@Test
 	public void selectDd_Jquer_EditableSelect() throws InterruptedException {
