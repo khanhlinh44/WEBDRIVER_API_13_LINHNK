@@ -29,22 +29,22 @@ public class Topic_09_Exercise_Button_RadioButton_Checkbox_Alert {
 		driver.manage().window().maximize();
 	}
 
-//	@Test
-//	public void TC_01_HandleButton() throws InterruptedException {
-//		String registerPage = "";
-//		String loginPage = "";
-//		driver.get("http://live.demoguru99.com/");
-//
-//		clickElementByJS("//div[@class='footer']//a[@title='My Account']");
-//		loginPage = driver.getCurrentUrl();
-//		Assert.assertEquals(loginPage, "http://live.demoguru99.com/index.php/customer/account/login/");
-//
-//		clickElementByJS("//a//span[text()='Create an Account']");
-//		registerPage = driver.getCurrentUrl();
-//		Assert.assertEquals(registerPage, "http://live.demoguru99.com/index.php/customer/account/create/");
-//		Thread.sleep(3000);
-//
-//	}
+	@Test
+	public void TC_01_HandleButton() throws InterruptedException {
+		String registerPage = "";
+		String loginPage = "";
+		driver.get("http://live.demoguru99.com/");
+
+		clickElementByJS("//div[@class='footer']//a[@title='My Account']");
+		loginPage = driver.getCurrentUrl();
+		Assert.assertEquals(loginPage, "http://live.demoguru99.com/index.php/customer/account/login/");
+
+		clickElementByJS("//a//span[text()='Create an Account']");
+		registerPage = driver.getCurrentUrl();
+		Assert.assertEquals(registerPage, "http://live.demoguru99.com/index.php/customer/account/create/");
+		Thread.sleep(3000);
+
+	}
 
 	@Test
 	public void TC_04_AcceptAlert() {
@@ -95,7 +95,7 @@ public class Topic_09_Exercise_Button_RadioButton_Checkbox_Alert {
 	}
 
 	@Test
-	public void TC_07_AutheticationAlert() throws InterruptedException {
+	public void TC_07_01_AutheticationAlert() throws InterruptedException {
 		String userName = "admin";
 		String password = "admin";
 		String autheticationUrl = "https://" + userName + ":" + password + "@the-internet.herokuapp.com/basic_auth";
