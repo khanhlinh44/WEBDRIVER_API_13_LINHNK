@@ -30,52 +30,52 @@ public class Topic_11_12_Excersise_Popup_Irame {
 		driver.manage().window().maximize();
 	}
 
-//	@Test
-//	public void TC_01_Popup_Iframe() {
-//		driver.get("https://kyna.vn/");
-//
-//		// close popup if have
-//		List<WebElement> fancyPopup = driver.findElements(By.xpath("//div[@class='fancybox-inner']"));
-//
-//		if (fancyPopup.size() > 0) {
-//			Assert.assertTrue(fancyPopup.get(0).isDisplayed());
-//			driver.findElement(By.cssSelector(".fancybox-close")).click();
-//		}
-//
-//		// switch to iframe and verify likes
-//		driver.switchTo().frame(driver.findElement(By.xpath("//div[@class='face-content']//iframe")));
-//		String facekbookLikes = driver.findElement(By.xpath("//a[@title='Kyna.vn']/parent::*/following-sibling::div"))
-//				.getText();
-//		Assert.assertEquals(facekbookLikes, "170K likes");
-//
-//		// login to dashboard
-//		driver.findElement(By.className("button-login")).click();
-//		driver.findElement(By.id("user-login")).sendKeys("automationfc.vn@gmail.com");
-//		driver.findElement(By.id("user-passwor")).sendKeys("automationfc.vn@gmail.com");
-//	}
+	@Test
+	public void TC_01_Popup_Iframe() {
+		driver.get("https://kyna.vn/");
 
-//	@Test
-//	public void TC_02_WindowTab() {
-//		driver.get("https://automationfc.github.io/basic-form/index.html");
-//
-//		// Tra về ID của tab hiện tại(đang active)
-//		String parentID = driver.getWindowHandle();
-//
-//		// Tra về ID của all tab
-////		Set<String> allID = driver.getWindowHandles();
-//
-//		driver.findElement(By.xpath("//label/following-sibling::a[text()='GOOGLE']")).click();
-//		switchToWindowByTitle("Google");
-//		Assert.assertEquals(driver.getTitle(), "Google");
-//
-//		switchToWindowByTitle("SELENIUM WEBDRIVER FORM DEMO");
-//		driver.findElement(By.xpath("//label/following-sibling::a[text()='FACEBOOK']")).click();
-//		switchToWindowByTitle("Facebook - Đăng nhập hoặc đăng ký");
-//
-//		closeAllTabWithoutParent(parentID);
-//		Assert.assertEquals(driver.getTitle(), "SELENIUM WEBDRIVER FORM DEMO");
-//
-//	}
+		// close popup if have
+		List<WebElement> fancyPopup = driver.findElements(By.xpath("//div[@class='fancybox-inner']"));
+
+		if (fancyPopup.size() > 0) {
+			Assert.assertTrue(fancyPopup.get(0).isDisplayed());
+			driver.findElement(By.cssSelector(".fancybox-close")).click();
+		}
+
+		// switch to iframe and verify likes
+		driver.switchTo().frame(driver.findElement(By.xpath("//div[@class='face-content']//iframe")));
+		String facekbookLikes = driver.findElement(By.xpath("//a[@title='Kyna.vn']/parent::*/following-sibling::div"))
+				.getText();
+		Assert.assertEquals(facekbookLikes, "170K likes");
+
+		// login to dashboard
+		driver.findElement(By.className("button-login")).click();
+		driver.findElement(By.id("user-login")).sendKeys("automationfc.vn@gmail.com");
+		driver.findElement(By.id("user-passwor")).sendKeys("automationfc.vn@gmail.com");
+	}
+
+	@Test
+	public void TC_02_WindowTab() {
+		driver.get("https://automationfc.github.io/basic-form/index.html");
+
+		// Tra về ID của tab hiện tại(đang active)
+		String parentID = driver.getWindowHandle();
+
+		// Tra về ID của all tab
+//		Set<String> allID = driver.getWindowHandles();
+
+		driver.findElement(By.xpath("//label/following-sibling::a[text()='GOOGLE']")).click();
+		switchToWindowByTitle("Google");
+		Assert.assertEquals(driver.getTitle(), "Google");
+
+		switchToWindowByTitle("SELENIUM WEBDRIVER FORM DEMO");
+		driver.findElement(By.xpath("//label/following-sibling::a[text()='FACEBOOK']")).click();
+		switchToWindowByTitle("Facebook - Đăng nhập hoặc đăng ký");
+
+		closeAllTabWithoutParent(parentID);
+		Assert.assertEquals(driver.getTitle(), "SELENIUM WEBDRIVER FORM DEMO");
+
+	}
 
 	@Test
 	public void TC_03_WindowTab() throws InterruptedException {
@@ -94,7 +94,7 @@ public class Topic_11_12_Excersise_Popup_Irame {
 		// click on App store
 		clickElementByJS("//div[@class='app-col']//a//img[@alt='apple-app-icon']");
 		switchToWindowByTitle("‎KYNA on the App Store");
-		String title = driver.getTitle().replace("\u200B", " ").trim();
+		String title = driver.getTitle();
 		Assert.assertEquals(title, "‎KYNA on the App Store");
 
 		switchToWindowByTitle("Kyna.vn - Học online cùng chuyên gia");
@@ -105,14 +105,6 @@ public class Topic_11_12_Excersise_Popup_Irame {
 		closeAllTabWithoutParent(parentID);
 
 	}
-
-//	@Test
-//	public void TC_04_WindowTab() {
-//		driver.get("http://live.demoguru99.com/index.php/");
-//
-//		driver.findElement(By.xpath("//a[text()='Mobile']")).click();
-//
-//	}
 
 	public void switchToWinDowByID(String parentID) {
 		Set<String> allWinDows = driver.getWindowHandles();
