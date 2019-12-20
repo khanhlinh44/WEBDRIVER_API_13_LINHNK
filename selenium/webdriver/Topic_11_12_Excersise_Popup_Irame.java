@@ -8,8 +8,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -19,13 +19,16 @@ public class Topic_11_12_Excersise_Popup_Irame {
 
 	WebDriver driver;
 	JavascriptExecutor js;
+	String projectPath = System.getProperty("user.dir");
 
 	@BeforeClass
 	public void beforeClass() {
-		FirefoxProfile profile = new FirefoxProfile();
-		profile.setPreference("dom.webnotifications.enabled", false);
+		System.setProperty("webdriver.chrome.driver", projectPath + "/libraries/chromedriver");
+		System.out.println("project path =" + projectPath);
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--lang=vi");
+		driver = new ChromeDriver(options);
 
-		driver = new FirefoxDriver(profile);
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 	}
@@ -91,19 +94,52 @@ public class Topic_11_12_Excersise_Popup_Irame {
 
 		String parentID = driver.getWindowHandle();
 
-		// click on App store
 		clickElementByJS("//div[@class='app-col']//a//img[@alt='apple-app-icon']");
 		switchToWindowByTitle("‎KYNA on the App Store");
-		String title = driver.getTitle();
-		Assert.assertEquals(title, "‎KYNA on the App Store");
+		Assert.assertEquals(driver.getTitle(), "‎KYNA on the App Store");
 
 		switchToWindowByTitle("Kyna.vn - Học online cùng chuyên gia");
 		clickElementByJS("//div[@class='app-col']//a//img[@alt='android-app-icon']");
+
 		switchToWindowByTitle("KYNA - Học online cùng chuyên gia - Ứng dụng trên Google Play");
 		Assert.assertEquals(driver.getTitle(), "KYNA - Học online cùng chuyên gia - Ứng dụng trên Google Play");
 
 		closeAllTabWithoutParent(parentID);
+	}
 
+	@Test
+	public void TC_04_WindowTab() throws InterruptedException {
+		// Step 01 - open url
+		driver.get("http://live.demoguru99.com/index.php/");
+		String parenTitle = driver.getTitle();
+
+		// Step 02 - click on mobile tab
+		driver.findElement(By.xpath("//ol//a[text()='Mobile']")).click();
+
+		// Step 03 - add Sony Xperia
+		clickOnButton(
+				"//h2[@class='product-name']//a[text()='Sony Xperia']/ancestor::div[1]//a[text()='Add to Compare']");
+		Assert.assertTrue(driver.findElement(By.xpath(
+				"//li[@class='success-msg']//span[text()='The product Sony Xperia has been added to comparison list.']"))
+				.isDisplayed());
+
+		// Step 04 - add Samsung Galaxy
+		clickOnButton(
+				"//h2[@class='product-name']//a[text()='Samsung Galaxy']/ancestor::div[1]//a[text()='Add to Compare']");
+		Assert.assertTrue(driver.findElement(By.xpath(
+				"//li[@class='success-msg']//span[text()='The product Samsung Galaxy has been added to comparison list.']"))
+				.isDisplayed());
+
+		// Step 05 - click on compare button
+		driver.findElement(By.xpath("//button//span[text()='Compare']")).click();
+
+		// Step 06 - switch to new window
+		String title = "Products Comparison List - Magento Commerce";
+		switchToWindowByTitle(title);
+		Assert.assertEquals(driver.getTitle(), title);
+
+		// Step 07 - close the tab and switch parent window
+		closeAllTabWithoutParent(parenTitle);
 	}
 
 	public void switchToWinDowByID(String parentID) {
@@ -149,6 +185,10 @@ public class Topic_11_12_Excersise_Popup_Irame {
 		js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].click();", element);
 
+	}
+
+	public void clickOnButton(String locator) {
+		driver.findElement(By.xpath(locator)).click();
 	}
 
 	@AfterClass
