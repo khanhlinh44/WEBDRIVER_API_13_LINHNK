@@ -60,6 +60,8 @@ public class Topic_15_Wait {
 
 //	@Test
 	public void TC_03_ExplicitWait_Invisible() {
+		String actualSelectedDate = "";
+		String expectedSelectedDate = "No Selected Dates to display.";
 		driver.get(url1);
 		explicitWait = new WebDriverWait(driver, 5);
 
@@ -67,6 +69,9 @@ public class Topic_15_Wait {
 
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(loadingIcon));
 		Assert.assertTrue(driver.findElement(resultText).isDisplayed());
+
+		actualSelectedDate = driver.findElement(By.xpath("//div[@class='datesContainer']//span")).getText();
+		Assert.assertEquals(actualSelectedDate, expectedSelectedDate);
 
 	}
 
@@ -83,18 +88,40 @@ public class Topic_15_Wait {
 
 	@Test
 	public void TC_05_ExplicitWait() {
+		String actualSelectedDate = "";
+		String unSelectedDate = "No Selected Dates to display.";
+		String selectedDate = "Wednesday, January 15, 2020";
+		// Step 01 - open url
 		driver.get(url2);
-		explicitWait = new WebDriverWait(driver, 10);
-		WebElement selectedDay = driver.findElement(By.id("ctl00_ContentPlaceholder1_Label1"));
 
+		// Step 02 - Wait
+		explicitWait = new WebDriverWait(driver, 10);
 		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(dateTimePicker));
 
-		System.out.println("Selected day" + selectedDay.getText());
+		// Step 03 - verify selected date
+		actualSelectedDate = driver.findElement(By.xpath("//div[@class='datesContainer']//span")).getText();
+		Assert.assertEquals(actualSelectedDate, unSelectedDate);
+
+		// Step 04 - Select current date
+		clickElement("//div[@class='calendarContainer']//tbody//td//a[text()='15']");
+
+		// Step 05 - wait until loading icon displayed
+		explicitWait.until(ExpectedConditions
+				.invisibilityOfElementLocated(By.xpath("//div[not(@style='display:none;')]/div[@class='raDiv']")));
+
+		// Step 06 - current date = selected date
+		actualSelectedDate = driver.findElement(By.xpath("//div[@class='datesContainer']//span")).getText();
+		Assert.assertEquals(actualSelectedDate, selectedDate);
+		System.out.println("Selected date" + actualSelectedDate);
 
 	}
 
 	public void clickBtnWithLabel(String label) {
 		driver.findElement(By.xpath("//div//button[text()='" + label + "']")).click();
+	}
+
+	public void clickElement(String xpath) {
+		driver.findElement(By.xpath(xpath)).click();
 	}
 
 	@AfterClass
